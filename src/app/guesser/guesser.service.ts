@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Font } from '../models/font';
 import { GoogleFontResponse } from '../models/googlefontresponse';
 
 const httpOptions = {

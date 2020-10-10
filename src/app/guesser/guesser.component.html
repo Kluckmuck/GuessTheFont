@@ -1,4 +1,15 @@
 <div class="content">
-    <p>guesser works!</p>
     <button (click)="button()">Print</button>
+    <div *ngIf="font">
+        <p>{{font}}</p>
+        <!-- <link rel="stylesheet" href={{this.font}}> -->
+        <link rel="stylesheet" [href]="'https://fonts.googleapis.com/css?family=' + font | safe">
+        <div [style]="'font-family: ' + font +', serif;'">Your text</div>
+
+        <input #box (keyup.enter)="onSubmit(box.value)">
+        <button (click)="onSubmit(box.value)">Guess!</button>
+        <p>{{answer}}</p>
+        <p>{{result}}</p>
+    </div>
+
 </div>
