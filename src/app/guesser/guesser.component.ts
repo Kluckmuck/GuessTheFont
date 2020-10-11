@@ -16,23 +16,29 @@ export class GuesserComponent implements OnInit {
   answer = '';
   result = null;
   points: number = 0;
+  pangrams: string[];
+  pangram: string = null;
 
   constructor(private guesserService: GuesserService) { }
 
   ngOnInit(): void {
+    this.guesserService.getPangrams().subscribe(response => {
+      this.pangrams = response;
+    })
     this.guesserService.getPopular().subscribe(response => {
       this.fonts = response;
       this.newGuess();
     })
   }
 
-  onSubmit(value: string) {
-    this.answer = value.trim();
+  onSubmit(value) {
+    this.answer = value.value.trim();
     if (this.answer.toLowerCase() == this.font.toLowerCase()) {
       this.result = true;
       this.points = this.points + 100;
     }
     else this.result = false;
+    value.value = '';
     this.newGuess();
   }
 
@@ -41,6 +47,7 @@ export class GuesserComponent implements OnInit {
     this.fontPath = this.fonts.items[this.random].files.regular;
     this.font = this.fonts.items[this.random].family;
     this.fonts.items.splice(this.random, 1);
+    this.pangram = this.pangrams[Math.floor(Math.random() * this.pangrams.length)];
     }
 
   GetRandom(): number {
