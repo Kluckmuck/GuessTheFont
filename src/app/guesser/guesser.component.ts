@@ -53,7 +53,6 @@ export class GuesserComponent implements OnInit {
     this.fonts.items.splice(this.random, 1);
     this.pangram = this.pangrams[Math.floor(Math.random() * this.pangrams.length)];
     //this.fonts.items.forEach(element => { console.log(element.family)});
-    console.log(this.fonts.items.length);
     }
 
   GetRandom(): number {
