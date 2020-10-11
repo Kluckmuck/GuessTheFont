@@ -15,15 +15,14 @@ export class GuesserComponent implements OnInit {
   random = null;
   answer = '';
   result = null;
+  points: number = 0;
 
   constructor(private guesserService: GuesserService) { }
 
   ngOnInit(): void {
-    this.random = this.GetRandom();
     this.guesserService.getPopular().subscribe(response => {
       this.fonts = response;
-      this.fontPath = this.fonts.items[this.random].files.regular;
-      this.font = this.fonts.items[this.random].family;
+      this.newGuess();
     })
   }
 
@@ -31,21 +30,21 @@ export class GuesserComponent implements OnInit {
     this.answer = value.trim();
     if (this.answer.toLowerCase() == this.font.toLowerCase()) {
       this.result = true;
-      console.log('is correct!');
+      this.points = this.points + 100;
     }
     else this.result = false;
+    this.newGuess();
   }
 
   newGuess(): void {
-    
-  }
+    this.random = this.GetRandom();
+    this.fontPath = this.fonts.items[this.random].files.regular;
+    this.font = this.fonts.items[this.random].family;
+    this.fonts.items.splice(this.random, 1);
+    }
 
   GetRandom(): number {
-    return Math.floor((Math.random() * 100) + 1);
-  }
-
-  setFont() {
-    this.font = this.font === 'Roboto, Helvetica, sans-serif' ? 'Ariel' : 'Roboto, Helvetica, sans-serif'
+    return Math.floor(Math.random() * this.fonts.items.length);
   }
 
   button(): void {
@@ -53,6 +52,6 @@ export class GuesserComponent implements OnInit {
     //this.fonts.items.forEach(element => { console.log(element.family)});
     //this.fonts.items[0].files.forEach(element => { console.log(element)});
     //console.log(JSON.stringify(this.fonts.items[0].files.regular));
-    console.log(JSON.stringify(this.fontPath));
+    //console.log(JSON.stringify(this.fontPath));
   }
 }

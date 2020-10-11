@@ -1,15 +1,14 @@
 <div class="content">
-    <button (click)="button()">Print</button>
     <div *ngIf="font">
-        <p>{{font}}</p>
-        <!-- <link rel="stylesheet" href={{this.font}}> -->
+        <p>Guess the font:</p>
         <link rel="stylesheet" [href]="'https://fonts.googleapis.com/css?family=' + font | safe">
-        <div [style]="'font-family: ' + font +', serif;'">Your text</div>
+        <div [style]="'font-family: ' + font +', serif;'">Waxy and quivering, jocks fumble the pizza</div>
 
         <input #box (keyup.enter)="onSubmit(box.value)">
         <button (click)="onSubmit(box.value)">Guess!</button>
-        <p>{{answer}}</p>
-        <p>{{result}}</p>
-    </div>
 
+        <p>{{points}} points</p>
+        <p *ngIf="result">Correct!</p>
+        <p *ngIf="!result && answer">False! Correct answer was {{font}}</p>
+    </div>
 </div>
