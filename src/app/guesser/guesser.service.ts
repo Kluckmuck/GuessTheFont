@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { GoogleFontResponse } from '../models/googlefontresponse';
+import { Font } from '../models/font';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,6 +20,48 @@ export class GuesserService {
 
   getPopular(): Observable<GoogleFontResponse> {
     return this.http.get<GoogleFontResponse>(this.API_URL + this.GOOGLE_KEY + '&sort=popularity');
+  }
+
+  getManual(): Observable<Font[]> {
+    let myobs:Observable<Font[]> = of([
+      { "family": "Playfair Display" },
+      { "family": "Ubuntu" },
+      { "family": "Lobster" },
+      { "family": "Crimson Text" },
+      { "family": "PT Sans" },
+      { "family": "Raleway" },
+      { "family": "Source Sans Pro" },
+      { "family": "Open Sans" },
+      { "family": "Roboto" },
+      { "family": "Lato" },
+      { "family": "Montserrat" },
+      { "family": "Rubik" },
+      { "family": "Barlow" },
+      { "family": "Abril Fatface" },
+      { "family": "Comfortaa" },
+      { "family": "Lobster" },
+      { "family": "Inconsolata" },
+      { "family": "Source Code Pro" },
+      { "family": "Oxygen Mono" },
+      { "family": "Merriweather" },
+      { "family": "Poppins" },
+      { "family": "Libre Franklin" },
+      { "family": "Barlow" },
+      { "family": "Muli" },
+      { "family": "Overpass" },
+      { "family": "IBM Plex Sans" },
+      { "family": "IBM Plex Mono" },
+      { "family": "EB Garamond" },
+      { "family": "Permanent Marker" },
+      { "family": "Quicksand" },
+      { "family": "Titillium Web" },
+      { "family": "Inter" },
+      { "family": "Libre Baskerville" },
+      { "family": "Bebau Neue" },
+      { "family": "Exo 2" },
+      { "family": "Exo" },
+    ])
+    return myobs;
   }
 
   getPangrams(): Observable<string[]> {

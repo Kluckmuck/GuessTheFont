@@ -27,6 +27,10 @@ export class GuesserComponent implements OnInit {
     })
     this.guesserService.getPopular().subscribe(response => {
       this.fonts = response;
+      this.fonts.items = this.fonts.items.slice(0,25);
+      this.guesserService.getManual().subscribe(response => {
+        this.fonts.items = this.fonts.items.concat(response);
+      })
       this.newGuess();
     })
   }
@@ -44,10 +48,12 @@ export class GuesserComponent implements OnInit {
 
   newGuess(): void {
     this.random = this.GetRandom();
-    this.fontPath = this.fonts.items[this.random].files.regular;
+    //this.fontPath = this.fonts.items[this.random].files.regular;
     this.font = this.fonts.items[this.random].family;
     this.fonts.items.splice(this.random, 1);
     this.pangram = this.pangrams[Math.floor(Math.random() * this.pangrams.length)];
+    //this.fonts.items.forEach(element => { console.log(element.family)});
+    console.log(this.fonts.items.length);
     }
 
   GetRandom(): number {
